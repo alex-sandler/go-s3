@@ -8,10 +8,20 @@ import (
 )
 
 type Config struct {
-	GRPC GRPCConfig `envPrefix:"GRPC_" env-required:"true"`
+	GRPC  HTTPConfig  `envPrefix:"HTTP_" env-required:"true"`
+	Minio MinioConfig `envPrefix:"MINIO_" env-required:"true"`
 }
 
-type GRPCConfig struct {
+type MinioConfig struct {
+	Endpoint           string `env:"ENDPOINT" env-required:"true"`
+	RootUser           string `env:"ROOT_USER" env-required:"true"`
+	RootPassword       string `env:"ROOT_PASSWORD" env-required:"true"`
+	BucketName         string `env:"BUCKET_NAME" env-required:"true"`
+	UseSSL             bool   `env:"USE_SSL" env-required:"true"`
+	FileTimeExpiration int    `env:"FILE_TIME_EXPIRATION" env-required:"true"`
+}
+
+type HTTPConfig struct {
 	Host string `env:"HOST" env-required:"true"`
 	Port string `env:"PORT" env-required:"true"`
 }
