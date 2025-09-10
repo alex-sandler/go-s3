@@ -1,15 +1,14 @@
 module go-s3
 
-go 1.24.0
-
-toolchain go1.24.7
+go 1.23.0
 
 require (
 	github.com/caarlos0/env/v10 v10.0.0
+	github.com/gofiber/fiber/v2 v2.52.9
 	github.com/joho/godotenv v1.5.1
 	github.com/minio/minio-go/v7 v7.0.95
 	go.uber.org/zap v1.27.0
-	golang.org/x/image v0.31.0
+	golang.org/x/image v0.18.0
 )
 
 require (
@@ -17,7 +16,6 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
-	github.com/gofiber/fiber/v2 v2.52.9 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.11 // indirect
@@ -37,5 +35,5 @@ require (
 	golang.org/x/crypto v0.39.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
-	golang.org/x/text v0.29.0 // indirect
+	golang.org/x/text v0.26.0 // indirect
 )

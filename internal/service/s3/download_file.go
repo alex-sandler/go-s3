@@ -1,4 +1,4 @@
-package service
+package s3
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"github.com/minio/minio-go/v7"
 )
 
-func (m *MinioService) DownloadFile(ctx context.Context, fileName string) ([]byte, error) {
+func (m *Service) DownloadFile(ctx context.Context, fileName string) ([]byte, error) {
 	l := logger.FromContext(ctx)
 
 	object, err := m.client.GetObject(ctx, m.bucket, fileName, minio.GetObjectOptions{})

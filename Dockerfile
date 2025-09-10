@@ -13,8 +13,8 @@ RUN chmod +x main
 
 FROM alpine:3.18
 
-COPY --from=builder /internal/app/main /main
-COPY --from=builder /internal/app/.env ./.env
+COPY --from=builder /app/main /main
+COPY --from=builder /app/.env ./.env
 
 EXPOSE 8080
 

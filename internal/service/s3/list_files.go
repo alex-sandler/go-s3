@@ -1,4 +1,4 @@
-package service
+package s3
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"github.com/minio/minio-go/v7"
 )
 
-func (m *MinioService) ListFiles(ctx context.Context) ([]string, error) {
+func (m *Service) ListFiles(ctx context.Context) ([]string, error) {
 	var files []string
 	l := logger.FromContext(ctx)
 

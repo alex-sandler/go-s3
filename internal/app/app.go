@@ -5,9 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"go-s3/internal/config"
+	"go-s3/internal/controller"
 	"go-s3/internal/infrastruct/logger"
 	"go-s3/internal/infrastruct/minio"
 	"go-s3/internal/infrastruct/server"
+	"go-s3/internal/service/image"
+	"go-s3/internal/service/s3"
 	"net/http"
 	"os"
 	"os/signal"
@@ -31,21 +34,24 @@ func Run(ctx context.Context) error {
 		return fmt.Errorf("app.Run: %w", err)
 	}
 
-	srv := server.NewServer(cfg)
-
-	go func() {
-		if err := srv.Start(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			l.Errorf("app.Run: failed to start server server: %v", err)
-		}
-	}()
-	l.Info("Server started, waiting for shutdown signal...")
-
 	minioClient := minio.NewMinioClient()
 	err = minioClient.Init(ctx, cfg)
 	if err != nil {
 		l.Errorf("app.Run: failed to init minio client: %v", err)
 		return fmt.Errorf("app.Run: %w", err)
 	}
+
+	s3Service := s3.NewMinioService(minioClient.GetClient(), cfg)
+	imageService := image.NewImageService(cfg)
+	c := controller.NewController(s3Service, imageService)
+
+	srv := server.NewServer(cfg, c)
+	go func() {
+		if err := srv.Start(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			l.Errorf("app.Run: failed to start server server: %v", err)
+		}
+	}()
+	l.Info("Server started, waiting for shutdown signal...")
 
 	<-ctx.Done()
 

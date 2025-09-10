@@ -1,4 +1,4 @@
-package service
+package s3
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 	"github.com/minio/minio-go/v7"
 )
 
-func (m *MinioService) UploadFile(ctx context.Context, fileName string, data []byte, contentType string) error {
+func (m *Service) UploadFile(ctx context.Context, fileName string, data []byte, contentType string) error {
 	l := logger.FromContext(ctx)
 
 	reader := bytes.NewReader(data)

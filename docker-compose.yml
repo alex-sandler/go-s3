@@ -1,4 +1,23 @@
 services:
+  s3-service:
+    container_name: s3-service
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - minio
+    restart: unless-stopped
+    environment:
+      - HTTP_HOST
+      - HTTP_PORT
+      - MINIO_ENDPOINT
+      - MINIO_ROOT_USER
+      - MINIO_ROOT_PASSWORD
+      - MINIO_BUCKET_NAME
+      - MINIO_USE_SSL
+      - FILE_TIME_EXPIRATION
+      - IMAGE_QUALITY
+      - IMAGE_MAX_WIDTH
   minio:
     container_name: minio
     image: 'minio/minio:RELEASE.2024-12-18T13-15-44Z'

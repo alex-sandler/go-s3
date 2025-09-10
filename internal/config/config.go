@@ -8,8 +8,14 @@ import (
 )
 
 type Config struct {
-	GRPC  HTTPConfig  `envPrefix:"HTTP_" env-required:"true"`
+	HTTP  HTTPConfig  `envPrefix:"HTTP_" env-required:"true"`
 	Minio MinioConfig `envPrefix:"MINIO_" env-required:"true"`
+	Image ImageConfig `envPrefix:"IMAGE_" env-required:"true"`
+}
+
+type HTTPConfig struct {
+	Host string `env:"HOST" env-required:"true"`
+	Port string `env:"PORT" env-required:"true"`
 }
 
 type MinioConfig struct {
@@ -21,9 +27,9 @@ type MinioConfig struct {
 	FileTimeExpiration int    `env:"FILE_TIME_EXPIRATION" env-required:"true"`
 }
 
-type HTTPConfig struct {
-	Host string `env:"HOST" env-required:"true"`
-	Port string `env:"PORT" env-required:"true"`
+type ImageConfig struct {
+	Quality  int `env:"QUALITY" env-required:"true"`
+	MaxWidth int `env:"MAX_WIDTH" env-required:"true"`
 }
 
 func Load() (*Config, error) {

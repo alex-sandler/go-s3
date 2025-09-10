@@ -17,6 +17,10 @@ func NewMinioClient() *Client {
 	return &Client{}
 }
 
+func (m *Client) GetClient() *minio.Client {
+	return m.mc
+}
+
 func (m *Client) Init(ctx context.Context, cfg *config.Config) error {
 	client, err := minio.New(cfg.Minio.Endpoint, &minio.Options{
 		Creds:  credentials.NewStaticV4(cfg.Minio.RootUser, cfg.Minio.RootPassword, ""),

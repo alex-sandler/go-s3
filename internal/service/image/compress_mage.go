@@ -1,4 +1,4 @@
-package service
+package image
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ import (
 	"golang.org/x/image/draw"
 )
 
-func (i *ImageService) CompressImage(ctx context.Context, src io.Reader) ([]byte, error) {
+func (i *Service) CompressImage(ctx context.Context, src io.Reader) ([]byte, error) {
 	l := logger.FromContext(ctx)
 
 	img, _, err := image.Decode(src)
@@ -25,7 +25,7 @@ func (i *ImageService) CompressImage(ctx context.Context, src io.Reader) ([]byte
 	width := bounds.Dx()
 	height := bounds.Dy()
 
-	if width <= i.maxWidth {
+	if width > i.maxWidth {
 		newHeight := height * i.maxWidth / width
 		newImg := image.NewRGBA(image.Rect(0, 0, i.maxWidth, newHeight))
 		draw.CatmullRom.Scale(newImg, newImg.Bounds(), img, bounds, draw.Over, nil)
