@@ -19,12 +19,11 @@ type HTTPConfig struct {
 }
 
 type MinioConfig struct {
-	Endpoint           string `env:"ENDPOINT" env-required:"true"`
-	RootUser           string `env:"ROOT_USER" env-required:"true"`
-	RootPassword       string `env:"ROOT_PASSWORD" env-required:"true"`
-	BucketName         string `env:"BUCKET_NAME" env-required:"true"`
-	UseSSL             bool   `env:"USE_SSL" env-required:"true"`
-	FileTimeExpiration int    `env:"FILE_TIME_EXPIRATION" env-required:"true"`
+	Endpoint     string `env:"ENDPOINT" env-required:"true"`
+	RootUser     string `env:"ROOT_USER" env-required:"true"`
+	RootPassword string `env:"ROOT_PASSWORD" env-required:"true"`
+	BucketName   string `env:"BUCKET_NAME" env-required:"true"`
+	UseSSL       bool   `env:"USE_SSL" env-required:"true"`
 }
 
 type ImageConfig struct {

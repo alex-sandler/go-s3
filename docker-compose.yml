@@ -15,7 +15,6 @@ services:
       - MINIO_ROOT_PASSWORD
       - MINIO_BUCKET_NAME
       - MINIO_USE_SSL
-      - FILE_TIME_EXPIRATION
       - IMAGE_QUALITY
       - IMAGE_MAX_WIDTH
   minio:
