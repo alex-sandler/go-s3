@@ -8,11 +8,11 @@ import (
 	"github.com/minio/minio-go/v7"
 )
 
-func (m *Service) ListFiles(ctx context.Context) ([]string, error) {
+func (s *Service) ListFiles(ctx context.Context) ([]string, error) {
 	var files []string
 	l := logger.FromContext(ctx)
 
-	objectCh := m.client.ListObjects(ctx, m.bucket, minio.ListObjectsOptions{})
+	objectCh := s.client.ListObjects(ctx, s.bucket, minio.ListObjectsOptions{})
 
 	for object := range objectCh {
 		if object.Err != nil {

@@ -40,9 +40,8 @@ func Run(ctx context.Context) error {
 		l.Errorf("app.Run: failed to init minio client: %v", err)
 		return fmt.Errorf("app.Run: %w", err)
 	}
-
-	s3Service := s3.NewMinioService(minioClient.GetClient(), cfg)
 	imageService := image.NewImageService(cfg)
+	s3Service := s3.NewMinioService(minioClient.GetClient(), cfg, imageService)
 	c := controller.NewController(s3Service, imageService)
 
 	srv := server.NewServer(cfg, c)

@@ -12,7 +12,7 @@ import (
 	"golang.org/x/image/draw"
 )
 
-func (i *Service) CompressImage(ctx context.Context, src io.Reader) ([]byte, error) {
+func (s *Service) CompressImage(ctx context.Context, src io.Reader) ([]byte, error) {
 	l := logger.FromContext(ctx)
 
 	img, _, err := image.Decode(src)
@@ -25,15 +25,15 @@ func (i *Service) CompressImage(ctx context.Context, src io.Reader) ([]byte, err
 	width := bounds.Dx()
 	height := bounds.Dy()
 
-	if width > i.maxWidth {
-		newHeight := height * i.maxWidth / width
-		newImg := image.NewRGBA(image.Rect(0, 0, i.maxWidth, newHeight))
+	if width > s.maxWidth {
+		newHeight := height * s.maxWidth / width
+		newImg := image.NewRGBA(image.Rect(0, 0, s.maxWidth, newHeight))
 		draw.CatmullRom.Scale(newImg, newImg.Bounds(), img, bounds, draw.Over, nil)
 		img = newImg
 	}
 
 	var buf bytes.Buffer
-	err = jpeg.Encode(&buf, img, &jpeg.Options{Quality: i.quality})
+	err = jpeg.Encode(&buf, img, &jpeg.Options{Quality: s.quality})
 	if err != nil {
 		l.Errorf("service.CompressImage: failed to encode image: %v", err)
 		return nil, fmt.Errorf("service.CompressImage: failed to encode image: %w", err)

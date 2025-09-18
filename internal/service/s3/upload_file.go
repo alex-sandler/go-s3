@@ -9,12 +9,12 @@ import (
 	"github.com/minio/minio-go/v7"
 )
 
-func (m *Service) UploadFile(ctx context.Context, fileName string, data []byte, contentType string) error {
+func (s *Service) UploadFile(ctx context.Context, fileName string, data []byte, contentType string) error {
 	l := logger.FromContext(ctx)
 
 	reader := bytes.NewReader(data)
 
-	_, err := m.client.PutObject(ctx, m.bucket, fileName, reader, int64(len(data)), minio.PutObjectOptions{
+	_, err := s.client.PutObject(ctx, s.bucket, fileName, reader, int64(len(data)), minio.PutObjectOptions{
 		ContentType: contentType,
 	})
 	if err != nil {
