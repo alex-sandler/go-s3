@@ -155,15 +155,3 @@ curl http://localhost:8080/health
 ```bash
 go build -o bin/go-s3 cmd/go-s3/main.go
 ```
-
-### Тестирование
-
-```bash
-go test ./...
-```
-
-### Линтинг
-
-```bash
-golangci-lint run
-```
